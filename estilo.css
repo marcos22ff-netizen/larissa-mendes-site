@@ -228,6 +228,10 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
     -webkit-mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 55%, transparent);
             mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 55%, transparent); }
   .momento, .momento--direita { left: var(--gutter); right: var(--gutter); bottom: 10vh; }
+  .momento--centro {
+    left: 50%; right: auto;
+    width: min(640px, calc(100% - var(--gutter) - var(--gutter)));
+  }
   .arte--retrato { width: 100%; height: 76%; object-position: center bottom; opacity: .48; }
   .secao--sobre .secao-grade { align-content: end; min-height: 72vh; }
   .secao--sobre .painel { background: rgb(16 24 16 / .82); }
@@ -237,6 +241,8 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
   .menu { gap: 8px; }
   .menu-cta { padding: 8px 12px; }
   .titulo-abertura { font-size: clamp(42px, 13vw, 64px); }
+  .painel--vidro { padding: 24px 20px; }
+  .painel--vidro .rotulo { font-size: 10px; letter-spacing: .18em; line-height: 1.5; }
   .cartoes { grid-template-columns: 1fr; }
   .rodape-painel { align-items: flex-start; flex-direction: column; }
   .painel--form { padding: 24px 20px; }
