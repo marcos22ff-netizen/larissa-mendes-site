@@ -72,7 +72,11 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
 /* ── Abertura cinematográfica ──────────────────────────────────────────── */
 .cine { position: relative; height: var(--altura, 400vh); }
 .cine-palco { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
-.cine-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cine-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  transform: translate3d(var(--toque-x, 0px), var(--toque-y, 0px), 0) scale(1.04);
+  transform-origin: center; transition: transform .24s var(--ease); will-change: transform;
+}
 .cine-vinheta {
   position: absolute; inset: 0; pointer-events: none;
   background:
@@ -144,6 +148,8 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
   position: absolute; z-index: -1; pointer-events: none;
   object-fit: cover; mix-blend-mode: var(--mistura);
   -webkit-mask-composite: source-in; mask-composite: intersect;
+  transform: translate3d(var(--toque-x, 0px), var(--toque-y, 0px), 0);
+  transition: transform .24s var(--ease); will-change: transform;
 }
 .arte--direita, .arte--esquerda { top: 0; bottom: 0; width: 64vw; height: 100%; }
 .arte--direita {
@@ -164,8 +170,7 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
 }
 .arte--suave { opacity: .32; }
 .arte--retrato { object-fit: contain; object-position: right bottom; width: 58vw; }
-/* Parallax leve aplicado pelo app.js */
-.arte[data-parallax] { will-change: transform; }
+/* O app.js desloca levemente os fundos enquanto há toque ativo. */
 
 /* ── Contato ───────────────────────────────────────────────────────────── */
 .secao--contato { justify-items: center; }

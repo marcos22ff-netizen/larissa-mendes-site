@@ -55,6 +55,37 @@
   document.querySelectorAll(".revelar").forEach(el=>observer.observe(el));
   document.querySelectorAll("[data-ano]").forEach(el=>el.textContent=new Date().getFullYear());
 
+  const fundos = [...document.querySelectorAll(".cine-canvas, .arte")];
+  if (!reduceMotion && fundos.length) {
+    let toqueAtivo = null;
+    const moverFundos = (evento) => {
+      const x = ((evento.clientX / innerWidth) - .5) * -24;
+      const y = ((evento.clientY / innerHeight) - .5) * -24;
+      fundos.forEach(fundo => {
+        fundo.style.setProperty("--toque-x", `${x.toFixed(1)}px`);
+        fundo.style.setProperty("--toque-y", `${y.toFixed(1)}px`);
+      });
+    };
+    const soltarFundos = (evento) => {
+      if (evento.pointerId !== toqueAtivo) return;
+      toqueAtivo = null;
+      fundos.forEach(fundo => {
+        fundo.style.setProperty("--toque-x", "0px");
+        fundo.style.setProperty("--toque-y", "0px");
+      });
+    };
+    addEventListener("pointerdown", evento => {
+      if (evento.pointerType !== "touch") return;
+      toqueAtivo = evento.pointerId;
+      moverFundos(evento);
+    }, {passive:true});
+    addEventListener("pointermove", evento => {
+      if (evento.pointerId === toqueAtivo) moverFundos(evento);
+    }, {passive:true});
+    addEventListener("pointerup", soltarFundos, {passive:true});
+    addEventListener("pointercancel", soltarFundos, {passive:true});
+  }
+
   const phone = String(S.whatsapp?.numero || "").replace(/\D/g, "");
   const baseMessage = S.whatsapp?.mensagem || "Olá, Larissa! Gostaria de agendar uma sessão de fisioterapia.";
   if (whats) whats.href = `https://wa.me/${phone}?text=${encodeURIComponent(baseMessage)}`;
